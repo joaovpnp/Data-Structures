@@ -6,7 +6,7 @@
 * The folders related to the data structures follow this pattern:
 > DataStructureName/DataStructureAttribute1/DataStructureAttribute2/...
 >
-    * **Example:**
+* **Example:**
 > Queue/Dynamic -> Leads to the source code of the dynamic queue
 * In addition, every data structure folder has a folder named Test, which contains a *test.c* file that checks if the data structure was implemented correctly.
 

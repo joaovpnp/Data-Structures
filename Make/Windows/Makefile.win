@@ -3,7 +3,7 @@ STRUCTURE ?= .
 
 # Main folders
 SRC_DIR := $(STRUCTURE)
-TEST_DIR := $(SRC_DIR)/Teste
+TEST_DIR := $(SRC_DIR)/Test
 OBJ_DIR := $(TEST_DIR)/objects
 
 # Source code and headers folders

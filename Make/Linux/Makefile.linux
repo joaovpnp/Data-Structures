@@ -1,0 +1,70 @@
+# Data structure from command line
+STRUCTURE ?= .
+
+# Main folders
+SRC_DIR := $(STRUCTURE)
+TEST_DIR := $(SRC_DIR)/Teste
+OBJ_DIR := $(TEST_DIR)/objects
+
+# Source code and headers folders
+C_SOURCE := $(wildcard $(SRC_DIR)/*.c)
+H_SOURCE := $(wildcard $(SRC_DIR)/*.h)
+TEST_SOURCE := $(TEST_DIR)/test.c
+
+# Executable name
+PROJ_NAME := $(TEST_DIR)/test
+
+# Compiled objects
+OBJ := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(C_SOURCE))
+TEST_OBJ := $(OBJ_DIR)/test.o
+
+# Compiler
+CC := gcc
+
+# Flags
+CC_FLAGS := -Wall -c
+
+# Remove command
+RM := rm -rf
+
+.PHONY: all clean run objFolder
+
+# Common target
+all: objFolder $(PROJ_NAME)
+
+# Create object folder
+objFolder:
+	@if [ ! -f "$(TEST_SOURCE)" ]; then \
+		echo "Error: test.c not found in $(TEST_DIR)"; \
+		exit 1; \
+	else \
+		mkdir -p $(OBJ_DIR); \
+	fi
+
+# To link all the objects and generate the binary
+$(PROJ_NAME): $(OBJ) $(TEST_OBJ)
+	@ echo 'Linking...'
+	$(CC) $^ -o $@
+	@ echo 'Compiled: $(PROJ_NAME)'
+
+# Rule to compile the data structure sources
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(SRC_DIR)/%.h
+	@ echo 'Compiling structure: $<'
+	$(CC) $(CC_FLAGS) $< -o $@
+
+# Rule to compile the test file
+$(TEST_OBJ): $(TEST_SOURCE)
+	@ echo 'Compiling test: $<'
+	$(CC) $(CC_FLAGS) -I$(SRC_DIR) $< -o $@
+
+# Run the test
+run: all
+	clear
+	@ echo 'Executing test...'
+	./$(PROJ_NAME)
+
+# Clean objects and binary
+clean:
+	@ echo 'Cleaning...'
+	$(RM) $(OBJ_DIR)
+	$(RM) $(PROJ_NAME)

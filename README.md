@@ -5,6 +5,7 @@
 * The folder Make contains the makefiles for Linux and Windows, which are called by the makefile in Estruturas.
 * The folders related to the data structures follow this pattern:
 > DataStructureName/DataStructureAttribute1/DataStructureAttribute2/...
+>
     * **Example:**
 > Queue/Dynamic -> Leads to the source code of the dynamic queue
 * In addition, every data structure folder has a folder named Test, which contains a *test.c* file that checks if the data structure was implemented correctly.
@@ -17,17 +18,14 @@
 
 ### Compiling
 * The makefile in Estruturas must receive an argument *F*, that is the data structure path.
-    * **Example:**
-    > `make F=Queue/Dynamic`
+    * **Example:** `make F=Queue/Dynamic`
 
 ### Running
 * The makefile in Estruturas must receive *run* as an argument and the same *F* from ***Compiling***.
-    * **Example:**
-    > `make run F=Queue/Dynamic`
+    * **Example:** `make run F=Queue/Dynamic`
 
 ### Cleaning
 * The makefile in Estruturas must receive *clean* as an argument and the same *F* from ***Compiling***.
-    * **Example:**
-    > `make clean F=Queue/Dynamic`
+    * **Example:** `make clean F=Queue/Dynamic`
 
 >#### ⚠️ Always write the data structure path like in the examples above.

@@ -43,8 +43,16 @@ void enqueue(const T* value, priorityQueue *q) {
         q->front = newNode;
         q->tale = newNode;
     } else {
-        q->tale->next = newNode;
-        q->tale = newNode;
+
+        node *aux0 = q->front;
+        node *aux1 = q->front;
+        while (q->ruler(value, aux1->data) == -1) {
+            aux0 = aux1;
+            aux1 = aux1->next;
+        }
+
+        newNode->next = aux1;
+        aux0->next = newNode;
     }
 
 }

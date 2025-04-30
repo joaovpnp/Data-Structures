@@ -8,7 +8,7 @@ endif
 # Folder from command line
 F ?= .
 
-# C program
+# Defining make command
 ifeq ($(OS_NAME), windows)
 	COMMAND := $(MAKE) --file=.\Make\Windows\Makefile.win
 else

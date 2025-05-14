@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include "priorityQueue.h"
 
-priorityQueue *createQueue(const size_t size, priorityRuler ruler) {
+priorityQueue *createQueue(const size_t size, priorityRuler ruler, PRIORITY_TYPE pType) {
 
     priorityQueue *q = malloc(sizeof(priorityQueue));
     q->size = size;
     q->ruler = ruler;
+    q->pType = pType;
     q->front = NULL;
     q->tale = NULL;
 
@@ -39,22 +40,27 @@ void enqueue(const T* value, priorityQueue *q) {
     newNode->next = NULL;
     memcpy(newNode->data, value, q->size);
 
-    if (q->tale == NULL) {
+    if (isEmpty(q)) {
         q->front = newNode;
         q->tale = newNode;
     } else {
 
         node *aux0 = q->front;
         node *aux1 = q->front;
-        while (q->ruler(value, aux1->data) == -1) {
+        while (aux1 != NULL && q->ruler(value, aux1->data) != q->pType) {
             aux0 = aux1;
             aux1 = aux1->next;
         }
 
-        newNode->next = aux1;
-        aux0->next = newNode;
-    }
+        if (aux1 == q->front) {
+            newNode->next = q->front;
+            q->front = newNode;
 
+        } else {
+            newNode->next = aux1;
+            aux0->next = newNode;
+        }
+    }
 }
 
 T* dequeue(priorityQueue *q) {
@@ -71,6 +77,7 @@ T* dequeue(priorityQueue *q) {
     if (aux == q->tale)
         q->tale = NULL;
 
+    free(aux->data);
     free(aux);
 
     return value;

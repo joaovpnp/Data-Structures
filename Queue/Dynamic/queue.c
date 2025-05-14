@@ -61,6 +61,7 @@ T* dequeue(queue *q) {
     if (aux == q->rear)
         q->rear = NULL;
 
+    free(aux->data);
     free(aux);
 
     return value;
